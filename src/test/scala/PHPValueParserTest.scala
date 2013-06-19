@@ -67,4 +67,9 @@ class PHPValueParserTest extends FunSuite {
     assert(stringified == string)
   }
 
+  test("Parsing some garbage") {
+    val string = "asdjasldd sdfsdaf"
+    val parsed = PHPVal.parse(string)
+    assert(!parsed.successful)
+  }
 }
