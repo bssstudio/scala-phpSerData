@@ -17,12 +17,10 @@ if (parsed.successful) {
   
   println(prettyPrintedString)
   /* will print:
-  
   PHPArray {
     PHPString("one") => PHPDouble(5.0),
     PHPString("two") => PHPDouble(6.0)
   }
-  
   */
 }
 ```
@@ -39,7 +37,6 @@ val phpValue = PHPArray(
               )
               
 val serialized = PHPVal.stringify(phpValue)
-
 println(serialized)
 /* will print:
 a:2:{s:3:"one";d:5.0;s:3:"two";d:6.0;}
