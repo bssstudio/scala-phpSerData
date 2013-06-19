@@ -1,6 +1,7 @@
 package si.bss.tools.phpSerData
 
 import org.apache.commons.lang.StringEscapeUtils.escapeJava
+import util.{Failure, Success, Try}
 
 /**
  * User: bss
@@ -57,5 +58,9 @@ object PHPVal {
     escapeJava(s)
   }
 
+  def parse(str: String): PHPValParser.ParseResult[PHPValue] = {
+    val parsed = PHPValParser.parseAll(PHPValParser.phpvalue, str)
+    parsed
+  }
 
 }
