@@ -1,7 +1,7 @@
 package si.bss.tools.phpSerData
 
 import org.apache.commons.lang.StringEscapeUtils.escapeJava
-import util.{Failure, Success, Try}
+import util.Try
 
 /**
  * User: bss
@@ -62,5 +62,9 @@ object PHPVal {
     val parsed = PHPValParser.parseAll(PHPValParser.phpvalue, str)
     parsed
   }
+
+  def toPHPVal[T](o: T)(implicit tphp: Writes[T]): PHPValue = tphp.writes(o)
+
+  def fromPHPVal[T](phpValue: PHPValue)(implicit fphp: Reads[T]): Try[T] = fphp.reads(phpValue)
 
 }

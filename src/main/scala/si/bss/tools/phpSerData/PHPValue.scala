@@ -15,4 +15,4 @@ case class PHPInt(i: Int) extends PHPLiteral {
 case class PHPDouble(d: Double) extends PHPLiteral
 case class PHPString(s: String) extends PHPLiteral
 
-case class PHPArray(a: List[(PHPLiteral, PHPValue)]) extends PHPValue
+case class PHPArray(a: Seq[(PHPLiteral, PHPValue)]) extends PHPValue
