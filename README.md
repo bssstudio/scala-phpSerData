@@ -96,5 +96,44 @@ val read = PHPVal.fromPHPVal[ReadsTest](parsedValue)
 ```
 
 
+## Writing from Scala types
+Again, this is very similar to JSON in Play
+```scala
+val aList = List("one", "two", "three")
+val phpValue = PHPVal.toPHPVal(value)
+/* It now contains:
+PHPArray(List(
+            (PHPInt(0) -> PHPString("one")),
+            (PHPInt(1) -> PHPString("two")),
+            (PHPInt(2) -> PHPString("three"))
+        ))
+*/
+```
+
+And of course custom Writers ala carte
+```scala
+//Your type again ;)
+case class WriteTest(a: Int, b: String)
+
+//define the custom Writer
+implicit val writeTestWrites = new Writes[WriteTest] {
+  def writes(o: WriteTest): PHPValue = {
+    PHPArray(List(
+      (PHPString("a") -> PHPInt(o.a)),
+      (PHPString("b") -> PHPString(o.b))
+    ))
+  }
+}
+
+//Instance of your type
+val value = WriteTest(123, "onetwothree")
+
+//And you transform into PHPValue ready to be serialized
+val phpValue = PHPVal.toPHPVal(value)
+
+//Serialized
+val serialized = PHPVal.stringify(phpValue)
+```
+
 
 
