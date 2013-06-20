@@ -69,8 +69,8 @@ case class ReadsTest(a: Int, b: String)
 implicit val myTypeReads = new Reads[ReadsTest] {
   def reads(phpValue: PHPValue): Try[ReadsTest] = {
     phpValue match {
-      case a: PHPArray => {
-        val atribs = a.a.toMap
+      case PHPArray(ar) => {
+        val atribs = ar.toMap
         val atribAT = Try(atribs(PHPString("a")))
         val atribBT = Try(atribs(PHPString("b")))
         for {
