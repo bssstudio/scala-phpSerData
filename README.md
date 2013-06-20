@@ -135,5 +135,26 @@ val phpValue = PHPVal.toPHPVal(value)
 val serialized = PHPVal.stringify(phpValue)
 ```
 
+## Combinators
+Parser combinators for arrays
+```scala
+val i = Format[Int](PHPString("i"))
+i.writes(1) //PHPArray(List((PHPString(i),PHPInt(1))))
 
+val s = Format[String](PHPString("s"))
+val is = i ~ s
+
+val x1 = is.writes( (1, "hai") ) //PHPArray(List((PHPString(i),PHPInt(1)), (PHPString(s),PHPString(hai))))
+
+is reads x1 //Success((1,hai))
+
+//or even
+case class Wrap(n: Int, msg: String)
+
+val w = is.map((Wrap.apply _).tupled, Wrap.unapply _)
+
+w reads x1 //Success(Wrap(1,hai))
+
+w writes res2.get //PHPArray(List((PHPString(i),PHPInt(1)), (PHPString(s),PHPString(hai))))
+```
 
