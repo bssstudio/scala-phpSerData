@@ -9,10 +9,7 @@ package si.bss.tools.phpSerData
 sealed trait PHPValue
 sealed trait PHPLiteral extends PHPValue
 
-case class PHPInt(i: Int) extends PHPLiteral {
-
-}
+case class PHPInt(i: Int) extends PHPLiteral
 case class PHPDouble(d: Double) extends PHPLiteral
 case class PHPString(s: String) extends PHPLiteral
-
 case class PHPArray(a: Seq[(PHPLiteral, PHPValue)]) extends PHPValue
