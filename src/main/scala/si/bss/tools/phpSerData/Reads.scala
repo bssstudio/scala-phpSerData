@@ -23,7 +23,7 @@ trait DefaultReads {
   implicit object IntReads extends Reads[Int] {
     def reads(phpValue: PHPValue): Try[Int] = {
       phpValue match {
-        case i: PHPInt => Success(i.i)
+        case PHPInt(i) => Success(i)
         case _ => Failure(new PHPReadsException("Wrong type"))
       }
     }
@@ -32,7 +32,7 @@ trait DefaultReads {
   implicit object DoubleReads extends Reads[Double] {
     def reads(phpValue: PHPValue): Try[Double] = {
       phpValue match {
-        case d: PHPDouble => Success(d.d)
+        case PHPDouble(d) => Success(d)
         case _ => Failure(new PHPReadsException("Wrong type"))
       }
     }
@@ -41,7 +41,7 @@ trait DefaultReads {
   implicit object StringReads extends Reads[String] {
     def reads(phpValue: PHPValue): Try[String] = {
       phpValue match {
-        case s: PHPString => Success(s.s)
+        case PHPString(s) => Success(s)
         case _ => Failure(new PHPReadsException("Wrong type"))
       }
     }
@@ -50,9 +50,9 @@ trait DefaultReads {
   implicit object BooleanReads extends Reads[Boolean] {
     def reads(phpValue: PHPValue): Try[Boolean] = {
       phpValue match {
-        case i: PHPInt => Success(i.i != 0)
-        case d: PHPDouble => Success(d.d != 0.0)
-        case s: PHPString => Success(s.s != "false" && s.s != "" && s.s != "0" && s.s != "0.0")
+        case PHPInt(i) => Success(i != 0)
+        case PHPDouble(d) => Success(d != 0.0)
+        case PHPString(s) => Success(s != "false" && s != "" && s != "0" && s != "0.0")
         case _ => Failure(new PHPReadsException("Unable to derive a boolean value from this type"))
       }
     }
@@ -62,8 +62,8 @@ trait DefaultReads {
   implicit def SeqReads[A: Reads] = new Reads[Seq[A]] {
     def reads(phpValue: PHPValue): Try[Seq[A]] = {
       phpValue match {
-        case a: PHPArray => Try {
-          a.a.map {
+        case PHPArray(a) => Try {
+          a.map {
             case (_, value) => PHPVal.fromPHPVal[A](value).get
           }.toSeq
         }
@@ -75,8 +75,8 @@ trait DefaultReads {
   implicit def MapReads[K: Reads, V: Reads] = new Reads[Map[K, V]] {
     def reads(phpValue: PHPValue): Try[Map[K, V]] = {
       phpValue match {
-        case a: PHPArray => Try {
-          a.a.map {
+        case PHPArray(a) => Try {
+          a.map {
             case (key, value) => {
               (PHPVal.fromPHPVal[K](key).get -> PHPVal.fromPHPVal[V](value).get)
             }
