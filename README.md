@@ -47,7 +47,6 @@ a:2:{s:3:"one";d:5.0;s:3:"two";d:6.0;}
 ## Reading to Scala types
 
 This is similar to JSON Reads in Play framework.
-
 ```scala
 // The same thing as above
 val phpSerializedContent = """a:2:{s:3:"one";d:5.0;s:3:"two";d:6.0;}"""
@@ -62,7 +61,6 @@ if (parsed.successful) {
 ```
 
 You can also define Reads for your own type
-
 ```scala
 //Your ususal case class
 case class ReadsTest(a: Int, b: String)
@@ -139,3 +137,29 @@ val phpValue = PHPVal.toPHPVal(value)
 //Serialized
 val serialized = PHPVal.stringify(phpValue)
 ```
+
+## Combinators
+
+Parser combinators for arrays
+
+```scala
+val i = Format[Int](PHPString("i"))
+i.writes(1) //PHPArray(List((PHPString(i),PHPInt(1))))
+
+val s = Format[String](PHPString("s"))
+val is = i ~ s
+
+val x1 = is.writes( (1, "hai") ) //PHPArray(List((PHPString(i),PHPInt(1)), (PHPString(s),PHPString(hai))))
+
+is reads x1 //Success((1,hai))
+
+//or even
+case class Wrap(n: Int, msg: String)
+
+val w = is.map((Wrap.apply _).tupled, Wrap.unapply _)
+
+w reads x1 //Success(Wrap(1,hai))
+
+w writes res2.get //PHPArray(List((PHPString(i),PHPInt(1)), (PHPString(s),PHPString(hai))))
+```
+

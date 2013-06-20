@@ -14,6 +14,7 @@ object PhpSerDataBuild extends Build {
       name := "phpSerData",
       organization := "si.bss.tools.phpSerData",
       version := "0.1-SNAPSHOT",
+      initialCommands in console := "import si.bss.tools.phpSerData._",
       resolvers ++= Seq(
         "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases"
       ),
