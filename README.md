@@ -47,6 +47,7 @@ a:2:{s:3:"one";d:5.0;s:3:"two";d:6.0;}
 ## Reading to Scala types
 
 This is similar to JSON Reads in Play framework.
+
 ```scala
 // The same thing as above
 val phpSerializedContent = """a:2:{s:3:"one";d:5.0;s:3:"two";d:6.0;}"""
@@ -61,6 +62,7 @@ if (parsed.successful) {
 ```
 
 You can also define Reads for your own type
+
 ```scala
 //Your ususal case class
 case class ReadsTest(a: Int, b: String)
@@ -97,7 +99,9 @@ val read = PHPVal.fromPHPVal[ReadsTest](parsedValue)
 
 
 ## Writing from Scala types
+
 Again, this is very similar to JSON in Play
+
 ```scala
 val aList = List("one", "two", "three")
 val phpValue = PHPVal.toPHPVal(value)
@@ -111,6 +115,7 @@ PHPArray(List(
 ```
 
 And of course custom Writers ala carte
+
 ```scala
 //Your type again ;)
 case class WriteTest(a: Int, b: String)
@@ -134,6 +139,3 @@ val phpValue = PHPVal.toPHPVal(value)
 //Serialized
 val serialized = PHPVal.stringify(phpValue)
 ```
-
-
-
