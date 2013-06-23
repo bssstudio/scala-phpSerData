@@ -24,6 +24,7 @@ trait DefaultReads {
     def reads(phpValue: PHPValue): Try[Int] = {
       phpValue match {
         case PHPInt(i) => Success(i)
+        case PHPString(s) => Try(s.toInt)
         case _ => Failure(new PHPReadsException("Wrong type"))
       }
     }
@@ -33,6 +34,7 @@ trait DefaultReads {
     def reads(phpValue: PHPValue): Try[Double] = {
       phpValue match {
         case PHPDouble(d) => Success(d)
+        case PHPString(s) => Try(s.toDouble)
         case _ => Failure(new PHPReadsException("Wrong type"))
       }
     }
