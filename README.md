@@ -138,7 +138,7 @@ val phpValue = PHPVal.toPHPVal(value)
 val serialized = PHPVal.stringify(phpValue)
 ```
 
-## Combinators
+## Combinators (experimental)
 
 Parser combinators for arrays
 
@@ -162,4 +162,3 @@ w reads x1 //Success(Wrap(1,hai))
 
 w writes res2.get //PHPArray(List((PHPString(i),PHPInt(1)), (PHPString(s),PHPString(hai))))
 ```
-
