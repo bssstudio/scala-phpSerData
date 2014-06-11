@@ -23,6 +23,13 @@ class PHPValStringifyTest extends  FunSuite {
     assert(strgot == strshould)
   }
 
+  test("Boolean Serialization") {
+    val phpvalue = PHPBoolean(false)
+    val strshould = "b:0;"
+    val strgot = PHPVal.stringify(phpvalue)
+    assert(strgot == strshould)
+  }
+
   test("String Serialization") {
     val phpvalue = PHPString("some crazy guy did php in scala! That's just sick!")
     val strshould = """s:50:"some crazy guy did php in scala! That's just sick!";"""

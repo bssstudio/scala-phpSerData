@@ -54,6 +54,7 @@ trait DefaultReads {
       phpValue match {
         case PHPInt(i) => Success(i != 0)
         case PHPDouble(d) => Success(d != 0.0)
+        case PHPBoolean(b) => Success(b)
         case PHPString(s) => Success(s != "false" && s != "" && s != "0" && s != "0.0")
         case _ => Failure(new PHPReadsException("Unable to derive a boolean value from this type"))
       }

@@ -30,6 +30,14 @@ class PHPValReadsTest extends FunSuite {
   }
 
   test("Boolean reads") {
+    val value = PHPBoolean(true)
+    val should = true
+    val read = PHPVal.fromPHPVal[Boolean](value)
+    assert(read.isSuccess)
+    assert(read.get == should)
+  }
+
+  test("Boolean reads from int") {
     val value = PHPInt(1)
     val should = true
     val read = PHPVal.fromPHPVal[Boolean](value)

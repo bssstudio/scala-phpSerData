@@ -29,6 +29,16 @@ class PHPValueParserTest extends FunSuite {
     assert(got == should)
   }
 
+  test("Parsing Boolean") {
+    val should = PHPBoolean(true)
+    val string = "b:1;"
+    val parsed = PHPValParser.parseAll(PHPValParser.phpvalue, string)
+
+    assert(parsed.successful)
+    val got = parsed.get
+    assert(got == should)
+  }
+
   test("Parsing String") {
     val should = PHPString("I am a little tea pot's holder")
     val string = """s:30:"I am a little tea pot's holder";"""

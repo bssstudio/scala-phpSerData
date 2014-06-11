@@ -30,7 +30,7 @@ trait DefaultWrites {
   }
 
   implicit object BooleanWrites extends Writes[Boolean] {
-    def writes(o: Boolean): PHPValue = PHPInt( if (o) {1} else {0} )
+    def writes(o: Boolean): PHPValue = PHPBoolean(o)
   }
 
   implicit def SeqWrites[A: Writes] = new Writes[Seq[A]] {

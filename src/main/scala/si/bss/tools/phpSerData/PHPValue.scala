@@ -12,4 +12,5 @@ sealed trait PHPLiteral extends PHPValue
 case class PHPInt(i: Int) extends PHPLiteral
 case class PHPDouble(d: Double) extends PHPLiteral
 case class PHPString(s: String) extends PHPLiteral
+case class PHPBoolean(b: Boolean) extends PHPLiteral
 case class PHPArray(a: Seq[(PHPLiteral, PHPValue)]) extends PHPValue

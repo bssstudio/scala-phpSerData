@@ -35,7 +35,7 @@ class PHPValWritesTest extends FunSuite {
 
   test("Writes Boolean") {
     val value = true
-    val should = PHPInt(1)
+    val should = PHPBoolean(true)
     val writen = PHPVal.toPHPVal(value)
     assert(writen === should)
   }

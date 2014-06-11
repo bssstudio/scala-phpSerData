@@ -15,6 +15,7 @@ object PHPVal {
     value match {
       case i: PHPInt => "i:"+i.i+";"
       case d: PHPDouble => "d:"+d.d+";"
+      case b: PHPBoolean => "b:"+{if (b.b) "1" else "0"}+";"
       case s: PHPString => "s:"+s.s.length+":"+'"'+escapeString(s.s)+'"'+";"
       case a: PHPArray => {
         "a:"+a.a.length + ":{"+
@@ -33,6 +34,7 @@ object PHPVal {
     (value match {
       case i: PHPInt => "PHPInt("+i.i+")"
       case d: PHPDouble => "PHPDouble("+d.d+")"
+      case b: PHPBoolean => "PHPBoolean("+b.b+")"
       case s: PHPString => "PHPString("+'"'+escapeString(s.s)+'"'+")"
       case a: PHPArray => {
         "PHPArray {\n"+
