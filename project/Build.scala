@@ -19,8 +19,9 @@ object PhpSerDataBuild extends Build {
         "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases"
       ),
       libraryDependencies ++= Seq(
-        "org.scalatest" %% "scalatest" % "1.9.1" % "test",
-        "commons-lang" % "commons-lang" % "2.6"
+        "org.scalatest" %% "scalatest" % "1.9.1" % "test"
+        //"commons-lang" % "commons-lang" % "2.6"
+        //"org.apache.commons" % "commons-lang3" % "3.5"
       )
     )
   )
