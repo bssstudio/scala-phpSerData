@@ -17,6 +17,7 @@ object PHPVal {
       case d: PHPDouble => "d:"+d.d+";"
       case b: PHPBoolean => "b:"+{if (b.b) "1" else "0"}+";"
       case s: PHPString => "s:"+s.s.length+":"+'"'+escapeString(s.s)+'"'+";"
+      case n: PHPNull => "N"
       case a: PHPArray => {
         "a:"+a.a.length + ":{"+
         (
@@ -36,6 +37,7 @@ object PHPVal {
       case d: PHPDouble => "PHPDouble("+d.d+")"
       case b: PHPBoolean => "PHPBoolean("+b.b+")"
       case s: PHPString => "PHPString("+'"'+escapeString(s.s)+'"'+")"
+      case s: PHPNull => "PHPNull()"
       case a: PHPArray => {
         "PHPArray {\n"+
           (a.a.map {

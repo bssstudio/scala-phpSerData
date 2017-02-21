@@ -34,7 +34,11 @@ object PHPValParser extends JavaTokenParsers {
     case _ ~ num ~ _ => PHPBoolean {if (num == "0") false else true}
   }
 
-  def literal: Parser[PHPLiteral] = (int | double | string | boolean)
+  def nullVal: Parser[PHPNull] = "N;" ^^ {
+    case _ => PHPNull()
+  }
+
+  def literal: Parser[PHPLiteral] = (int | double | string | boolean | nullVal)
   def phpvalue: Parser[PHPValue] = literal | array
 
   def arrayElement: Parser[(PHPLiteral, PHPValue)] = literal ~ phpvalue ^^ {
